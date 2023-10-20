@@ -1,0 +1,21 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT-0",
+  "dependencies": {
+    "@aws-lambda-powertools/batch": "^1.14.0",
+    "@aws-lambda-powertools/logger": "^1.14.0",
+    "@aws-lambda-powertools/parameters": "^1.14.0",
+    "@aws-lambda-powertools/tracer": "^1.14.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.423.0",
+    "@aws-sdk/client-sqs": "^3.427.0",
+    "mongodb": "^6.1.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.425.0",
+    "@types/aws-lambda": "^8.10.122"
+  }
+}
