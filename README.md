@@ -263,7 +263,11 @@ To avoid incurring unexpected charges, make sure to delete the resources created
 
 ## Next steps
 
-For added security, if your API is public, we recommend that you add a Web Application Firewall (WAF) to your API Gateway API. You can find instructions on how to do so in the [AWS documentation](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-aws-waf.html). Additionally, we also recommend that you enable API Access Logs for your API Gateway API. You can find instructions on how to do so in the [AWS documentation](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html).
+This application was written for demonstration and educational purposes and not for production use. The [Security Pillar of the AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html) can support you in further adopting the sample into a production deployment in addition to your own established processes. Take note of the following:
+
+- The application uses encryption in transit and at rest with AWS-managed keys where applicable. Optionally, use [AWS KMS](https://aws.amazon.com/kms/) with [DynamoDB](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html), [SQS](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html), and [S3](https://docs.aws.amazon.com/kms/latest/developerguide/services-s3.html) for more control over encryption keys.
+
+- [API Gateway access logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html#set-up-access-logging-using-console) and [usage plans](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html) are not activiated in this code sample. Similarly, AWS WAF is not enabled on the API Gateway API. You can enable these features to gain more control over API access and usage.
 
 ## Security
 
