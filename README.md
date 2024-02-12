@@ -116,7 +116,7 @@ Copy the EventBridge Event Bus name (i.e. `aws.partner/mongodb.com/stitch.trigge
 
 ```bash
 AWS_REGION=us-east-1 cdk deploy \
-    --paramters EventBridgePartnerEventBusName=aws.partner/mongodb.com/stitch.trigger/<trigger-id> \
+    --parameters EventBridgePartnerEventBusName=aws.partner/mongodb.com/stitch.trigger/<trigger-id> \
     --parameters MongoDBConnectionStringSecretName=<secret-name>
 ```
 
@@ -137,6 +137,8 @@ arn:aws:cloudformation:us-east-1:123446789101:stack/MongodbBedrockSemanticSearch
 
 ✨  Total time: 452.18s
 ```
+
+> ℹ️ Troubleshooting: In case you encounter an error message like `"The provided execution role does not have permissions to call DescribeNetworkInterfaces on EC2"`, please refer to the troubleshooting section below.
 
 Take note of VPC ID, subnet IDs, and Security Group ID in the output, you will use it in the next step to create the PrivateLink between the VPC and MongoDB Atlas.
 
@@ -182,7 +184,7 @@ Run the following command after replacing the `<api-id>` placeholder with the AP
 
 ```bash
 curl --request GET \
-  'https://<api-id>.execute-api.us-east-1.amazonaws.com/prod/create-initial-embeddings?count=100' \                 
+  'https://<api-id>.execute-api.us-east-1.amazonaws.com/prod/create-initial-embeddings?count=100' \
   --aws-sigv4 "aws:amz:us-east-1:execute-api" \
   --user "${AWS_ACCESS_KEY_ID}:${AWS_SECRET_ACCESS_KEY}" \
   --header "x-amz-security-token: ${AWS_SESSION_TOKEN}" \
@@ -272,6 +274,26 @@ This application was written for demonstration and educational purposes and not 
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## Troubleshooting
+
+### Error during cdk deploy `"The provided execution role does not have permissions to call DescribeNetworkInterfaces on EC2"`
+
+If you are encountering an error message like the one mentioned above while running `cdk deploy`, it is possible that your environment is different. To resolve this, you can reduce the strictness of the stack, but it is important to note that this is not a recommended practice and should only be used for testing or demo purposes. Please keep in mind that this approach should not be used in a production environment.
+
+1. Disable cdk-nag checks by commenting the following line on `bin/mongodb-bedrock-semantic-search.ts`:
+```ts
+// Aspects.of(app).add(new AwsSolutionsChecks({}));
+```
+
+2. Modify the `resources` block in the `lib/function-construct.ts` file by changing the value on line 74 to `'*'`.
+```ts
+...
+              resources: [ // line 74
+                '*',
+              ],
+...
+```
 
 ## License
 
